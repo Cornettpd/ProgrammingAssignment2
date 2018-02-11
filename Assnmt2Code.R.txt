@@ -1,0 +1,25 @@
+	# This is the code for the week 3 assignment 2. I had submitted the Rproj but realized after reviewing that I should have submitted just the code. The first function initializes the environment variables. The second function executes the get and set and loads cache with the results in the first execution. Subsequent executions check to see if the cache is not null and if so retrieves the cached results.
+
+
+makeCacheMatrix <- function(a = matrix()) {
+   inv <- NULL
+   set <- function(b) {
+       a <<- b
+       inv <<- NULL
+   }
+   get <- function()a
+   setInv <- function(inverse) inv <<- inverse
+   getInv <- function()inv
+   list(set=set,get=get,setInv=setInv,getInv=getInv)
+}
+cacheSolve <- function(a, ...) {
+   inv <- a$getInv()
+   if(!is.null(inv)) {
+       message("get cache")
+       return(inv)
+   }
+   data <- a$get()
+   inv <- solve(data)
+   a$setInv(inv)
+   inv
+}
